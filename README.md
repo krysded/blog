@@ -1,7 +1,24 @@
 # blog
 
-Plain HTML blog served at https://vratislav.svejdovi.org via Cloudflare Pages.
+Hugo blog at https://vratislav.svejdovi.org, deployed by Cloudflare Workers Builds on every push to `main`.
 
-New post: copy `posts/hello.html`, edit it, add a line to the list in `index.html`.
+## New post
 
-Cloudflare Pages settings: framework preset **None**, build command empty, output directory `/`.
+Create `content/posts/my-post.md`:
+
+```markdown
+---
+title: "My post"
+date: 2026-11-24
+---
+
+Text in Markdown.
+```
+
+Commit and push — that's it. (Add `draft: true` to keep it unpublished.)
+With Hugo installed locally: `hugo new posts/my-post.md`, preview with `hugo server -D`.
+
+## Cloudflare settings
+
+- Build command: `hugo --gc --minify`
+- Deploy command: `npx wrangler deploy` (reads `wrangler.jsonc`, uploads `public/`)

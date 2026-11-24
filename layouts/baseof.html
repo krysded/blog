@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="{{ site.LanguageCode }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} – {{ site.Title }}{{ end }}</title>
+<link rel="stylesheet" href="/style.css">
+{{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">{{ end }}
+</head>
+<body>
+<header><a href="/">{{ site.Title }}</a></header>
+<main>{{ block "main" . }}{{ end }}</main>
+<footer><a href="/index.xml">RSS</a> · <a href="https://twitter.com/{{ site.Params.twitter }}">@{{ site.Params.twitter }}</a></footer>
+</body>
+</html>

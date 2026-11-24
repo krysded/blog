@@ -1,0 +1,10 @@
+baseURL = "https://vratislav.svejdovi.org/"
+languageCode = "cs"
+title = "Vratislav Švejda"
+enableRobotsTXT = true
+
+[params]
+  twitter = "VratislavSvejda"
+
+[permalinks]
+  posts = "/:year/:slug/"
