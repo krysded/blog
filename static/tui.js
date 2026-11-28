@@ -77,6 +77,7 @@
     sel[1] = 0; draw();
   }
   async function search() {
+    if (input) { input.focus(); return; }       // already open: reuse the field
     show('search', '', 'hledat /');
     q = '';
     input = document.createElement('input');
