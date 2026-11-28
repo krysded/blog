@@ -1,0 +1,9 @@
+{{ define "pane" }}projekty{{ end }}
+{{ define "main" }}
+<div class="list">
+{{- range site.Data.projects.project }}
+<a class="it" href="{{ .url }}"><span class="d">{{ .name }}/</span><span class="t">{{ .title }}</span><span class="d tg">{{ .desc }}</span></a>
+{{- end }}
+</div>
+{{ with .Content }}<div class="art">{{ . }}</div>{{ end }}
+{{ end }}

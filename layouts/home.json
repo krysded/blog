@@ -1,0 +1,8 @@
+{{- $p := slice -}}
+{{- range where site.RegularPages "Section" "posts" -}}
+{{- $p = $p | append (dict "t" .Title "u" .RelPermalink "d" (.Date.Format "2006-01-02") "g" (.Params.tags | default slice) "s" (.Plain | truncate 400)) -}}
+{{- end -}}
+{{- range site.Data.projects.project -}}
+{{- $p = $p | append (dict "t" .title "u" .url "d" (printf "%s/" .name) "g" (slice "projekt") "s" .desc) -}}
+{{- end -}}
+{{- $p | jsonify -}}

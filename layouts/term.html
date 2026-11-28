@@ -1,0 +1,6 @@
+{{ define "pane" }}tagy/#{{ .Title | lower }}{{ end }}
+{{ define "main" }}
+<div class="list">
+{{- range .Pages }}{{ partial "row.html" . }}{{ end }}
+</div>
+{{ end }}

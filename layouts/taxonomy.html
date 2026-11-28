@@ -1,0 +1,8 @@
+{{ define "pane" }}tagy{{ end }}
+{{ define "main" }}
+<div class="list">
+{{- range .Data.Terms.ByCount }}
+<a class="it" href="{{ .Page.RelPermalink }}"><span class="t">#{{ .Page.Title | lower }}</span><span class="d">{{ .Count }}</span></a>
+{{- end }}
+</div>
+{{ end }}

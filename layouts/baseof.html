@@ -4,12 +4,28 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} – {{ site.Title }}{{ end }}</title>
+<meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="/style.css">
-{{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">{{ end }}
+{{ with site.Home.OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">{{ end }}
+<script src="/tui.js" defer></script>
 </head>
-<body>
-<header><a href="/">{{ site.Title }}</a></header>
-<main>{{ block "main" . }}{{ end }}</main>
-<footer><a href="/index.xml">RSS</a> · <a href="https://twitter.com/{{ site.Params.twitter }}">@{{ site.Params.twitter }}</a></footer>
+{{- $cur := "posts" -}}
+{{- if eq .Section "projekty" }}{{ $cur = "projekty" }}{{ else if in (slice "taxonomy" "term") .Kind }}{{ $cur = "tagy" }}{{ else if eq .RelPermalink "/o-mne/" }}{{ $cur = "o-mne" }}{{ end -}}
+{{- $parent := "" -}}
+{{- if eq .Kind "page" }}{{ $parent = "/" }}{{ if eq $cur "projekty" }}{{ $parent = "/projekty/" }}{{ end }}{{ else if eq .Kind "term" }}{{ $parent = "/tags/" }}{{ end -}}
+{{- $menu := slice (dict "k" "posts" "t" "posts" "u" "/") (dict "k" "projekty" "t" "projekty" "u" "/projekty/") (dict "k" "tagy" "t" "tagy" "u" "/tags/") (dict "k" "o-mne" "t" "o mně" "u" "/o-mne/") -}}
+<body data-parent="{{ $parent }}">
+<div class="tui">
+<header class="top"><a class="host" href="/">● {{ site.Params.host }}</a><span class="crumb">~{{ .RelPermalink }}</span></header>
+<div class="wrap">
+<nav class="pn" id="menu" aria-label="Menu"><span class="pt">menu</span><div class="sc">
+{{- range $i, $m := $menu }}
+<a class="it{{ if eq $m.k $cur }} cur{{ end }}" href="{{ $m.u }}"><span class="d">{{ add $i 1 }}</span><span class="t">{{ $m.t }}</span></a>
+{{- end }}
+</div></nav>
+<main class="pn" id="main"><span class="pt">{{ block "pane" . }}posts{{ end }}</span><div class="sc">{{ block "main" . }}{{ end }}</div></main>
+</div>
+<footer class="st"><span class="hint">j/k pohyb · ⏎ otevřít · h zpět · tab panel · / hledat · ? nápověda</span><span class="right"><span class="pos"></span><a class="srch" href="/index.json">/ hledat</a> · <a href="/index.xml">rss</a> · <a href="https://twitter.com/{{ site.Params.twitter }}">@{{ site.Params.twitter }}</a></span></footer>
+</div>
 </body>
 </html>

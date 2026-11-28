@@ -1,0 +1,6 @@
+# Each [[project]] appears on /projekty/ and in search.
+[[project]]
+name = "beats"
+title = "Focus Beats"
+url = "https://beats.svejdovi.org/"
+desc = "pomodoro s binaurálními beaty"

@@ -1,7 +1,11 @@
+{{ define "pane" }}{{ .File.ContentBaseName }}{{ end }}
 {{ define "main" }}
-<article>
+<article class="art">
 <h1>{{ .Title }}</h1>
-<p><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time></p>
+{{- if eq .Section "posts" }}
+<p class="meta">{{ .Date.Format "2006-01-02" }} · {{ .ReadingTime }} min čtení{{ range .Params.tags }} · <a href="{{ (site.GetPage (printf "/tags/%s" (urlize .))).RelPermalink }}">#{{ . }}</a>{{ end }}</p>
+{{- end }}
 {{ .Content }}
+<p class="meta end"><a href="{{ if eq .Section "posts" }}/{{ else }}{{ .Parent.RelPermalink }}{{ end }}">← zpět</a></p>
 </article>
 {{ end }}

@@ -5,6 +5,13 @@ enableRobotsTXT = true
 
 [params]
   twitter = "VratislavSvejda"
+  host = "vratislav.svejdovi.org"
 
 [permalinks]
   posts = "/:year/:slug/"
+
+[taxonomies]
+  tag = "tags"
+
+[outputs]
+  home = ["html", "rss", "json"]
